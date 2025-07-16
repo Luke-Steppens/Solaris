@@ -1,0 +1,133 @@
+import cv2
+import mediapipe as mp
+import pygame
+import serial
+import time
+import math
+
+# Initialize MediaPipe Hand Tracking
+mp_hands = mp.solutions.hands
+mp_draw = mp.solutions.drawing_utils
+hands = mp_hands.Hands()
+
+# Initialize Pygame Window
+pygame.init()
+WIDTH, HEIGHT = 640, 480
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Hand Controlled 2-DOF Robotic Arm")
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+WHITE = (255, 255, 255)
+
+# Initial Position of the Dot
+dot_x, dot_y = WIDTH // 2, HEIGHT // 2
+dot_radius = 10
+
+# Open Camera
+cap = cv2.VideoCapture(0)
+
+# Setup Serial Communication with Arduino
+arduino = serial.Serial('COM3', 9600)  # Change COM port based on your setup
+time.sleep(2)  # Allow connection to establish
+
+# Arm segment lengths (adjust these according to your actual arm dimensions)
+l1, l2 = 100, 100  # First and second segment lengths
+
+# Inverse Kinematics Function (calculates joint angles for 2-DOF arm)
+def inverse_kinematics(x, y):
+    r = math.sqrt(x**2 + y**2)  # Distance from base to target
+
+    # Clamp r to ensure no math domain errors 
+    r = min(max(r, abs(l1 - l2)), (l1 + l2))  
+
+    # Base angle (rotation around the base)
+    theta1 = math.degrees(math.atan2(y, x))  
+
+    # Law of cosines to get the elbow angle
+    cos_theta2 = (r**2 - l1**2 - l2**2) / (2 * l1 * l2)
+    cos_theta2 = min(1, max(-1, cos_theta2))  # Ensure valid cosine range
+    theta2 = math.degrees(math.acos(cos_theta2))  # Elbow angle
+
+    return theta1, theta2
+
+# Function to send angles to Arduino
+def send_to_arduino(x, y):
+    angle1, angle2 = inverse_kinematics(x, y)
+    print(f"Calculated Angles - Base: {angle1}, Elbow: {angle2}")  
+    command = f"{angle1},{angle2}\n"
+    arduino.write(command.encode())  # Send command to Arduino
+    print(f"Sent to Arduino: {command}")
+
+# Function to draw the robotic arm in Pygame
+def draw_arm(theta1, theta2):
+    # Convert angles to radians for drawing
+    theta1 = math.radians(theta1)
+    theta2 = math.radians(theta2)
+
+    # Base position
+    x0, y0 = WIDTH // 2, HEIGHT // 2  
+
+    # First joint position
+    x1 = x0 + l1 * math.cos(theta1)
+    y1 = y0 + l1 * math.sin(theta1)
+
+    # End effector position
+    x2 = x1 + l2 * math.cos(theta1 + theta2)
+    y2 = y1 + l2 * math.sin(theta1 + theta2)
+
+    # Draw the arm segments
+    pygame.draw.line(screen, WHITE, (x0, y0), (x1, y1), 5)
+    pygame.draw.line(screen, WHITE, (x1, y1), (x2, y2), 5)
+    pygame.draw.circle(screen, GREEN, (int(x2), int(y2)), 8)  # End effector position
+
+# Main loop
+while cap.isOpened():
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    frame = cv2.flip(frame, 1)
+    h, w, _ = frame.shape
+    rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    result = hands.process(rgb_frame)
+
+    if result.multi_hand_landmarks:
+        for hand_landmarks in result.multi_hand_landmarks:
+            mp_draw.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+            # Get Index Finger Tip 
+            index_finger_tip = hand_landmarks.landmark[8]
+            x = int(index_finger_tip.x * w)
+            y = int(index_finger_tip.y * h)
+
+            # Convert hand coordinates to match Pygame screen size
+            dot_x = int(index_finger_tip.x * WIDTH)
+            dot_y = int(index_finger_tip.y * HEIGHT)
+
+            # Draw a circle at the fingertip position
+            cv2.circle(frame, (x, y), 10, (0, 255, 255), -1)
+
+            # Send coordinates to Arduino
+            send_to_arduino(x, y)
+
+    # Show Hand Tracking Window
+    cv2.imshow("Hand Tracking", frame)
+
+    # Quit with ESC
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+
+    # Pygame Window Update
+    screen.fill(BLACK)
+    pygame.draw.circle(screen, GREEN, (dot_x, dot_y), dot_radius)
+
+    # Draw 2-DOF arm movement
+    theta1, theta2 = inverse_kinematics(dot_x, dot_y)
+    draw_arm(theta1, theta2)
+
+    pygame.display.update()
+
+cap.release()
+cv2.destroyAllWindows()
+pygame.quit()
+arduino.close()

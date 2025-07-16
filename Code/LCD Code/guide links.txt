@@ -1,0 +1,10 @@
+for this code I installed circuitpython onto a pi pico and programmed it with thonny
+
+libraries vid for pico and screen
+https://www.youtube.com/watch?v=KaGHxvVnKQ4
+
+https://thonny.org/
+
+I watched this tutorial for this
+https://www.youtube.com/watch?v=QUOhSPpJfOI&t=153s
+
