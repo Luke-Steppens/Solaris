@@ -15,14 +15,37 @@ Solaris is a responsive, gesture-controlled light installation that uses real-ti
 ---
 
 ## Project Overview
-<div align="center">
-  <img src="Media/final%20render.png" alt="Final Render" width="600"/>
-</div>
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/Photos/WhatsApp%20Image%202026-08-04%20at%2006.53.04.jpeg?raw=true" width="650">
+</p>
+
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/Photos/WhatsApp%20Image%202026-08-04%20at%2006.54.34.jpeg?raw=true" width="650">
+</p>
+
+
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/front%20&%20side_page-0001.jpg?raw=true" width="650">
+</p>
+
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/exploded%20view_page-0001.jpg?raw=true" width="650">
+</p>
+
+
+
 Solaris enables users to interact with beams of light that refract through prisms and orbs, which are mechanically rotated by a robotic system in response to hand movements. The system leverages hand tracking, servo-controlled articulation, and custom-designed 3D-printed components to create a visually dynamic installation.
 
 ---
 
 ## Team Members and their development logs
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/Photos/WhatsApp%20Image%202026-08-04%20at%2007.07.57.jpeg?raw=true" width="650">
+</p>
 
 - **Adithi Jayaraman** - https://www.notion.so/COMP209-1820f7ecc39f8019a431de44047871cf?pvs=4
 - **Dan Ward** - https://www.notion.so/COMP209-Notes-Dan-19073cfe815b80a4bc4dd21392c3a36d
