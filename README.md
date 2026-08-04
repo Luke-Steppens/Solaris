@@ -26,16 +26,6 @@ Solaris is a responsive, gesture-controlled light installation that uses real-ti
 
 
 
-<p align="center">
-  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/front%20&%20side_page-0001.jpg?raw=true" width="650">
-</p>
-
-
-<p align="center">
-  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/exploded%20view_page-0001.jpg?raw=true" width="650">
-</p>
-
-
 
 Solaris enables users to interact with beams of light that refract through prisms and orbs, which are mechanically rotated by a robotic system in response to hand movements. The system leverages hand tracking, servo-controlled articulation, and custom-designed 3D-printed components to create a visually dynamic installation.
 
@@ -53,7 +43,87 @@ Solaris enables users to interact with beams of light that refract through prism
 - **Luke Steppens** - https://www.notion.so/COMP209-Robot-Design-60538fde323a44ef86ece4d31390ee01?pvs=4
 
 ---
+## Individual Contribution
 
+For this project I was the designer of the artefact. This included fabrication of parts and the construction of the device. 
+
+
+Step 1
+
+- Design and fabricate a miniature planetary gear system and motorise it
+This test configuration allowed me to highlight potential future issues and assess suitability for the project.
+
+
+
+
+<img width="1280" height="720" alt="MiniPrism v24again" src="https://github.com/user-attachments/assets/90567f3b-94dd-43d6-a9dd-e7611d9f9716" />
+
+
+
+<p align="center">
+<img width="504" height="549" alt="WhatsAppVideo2026-08-04at10 07 54-ezgif com-crop" src="https://github.com/user-attachments/assets/43bb198c-a70c-4533-8953-37261362796c" />
+
+
+---
+
+Step 2
+
+- Design primative glass mount
+Creating this basic design highlighted future weight distribution concerns and glass mounting types to be attached to each planetary gear. The eventual mounts utilised the limited elasticity of PLA for an easy, secure friction fit. 
+In the final piece, this part would be the hardest to finalise when went through many iterations.
+
+
+
+
+<p align="center">
+  
+https://github.com/user-attachments/assets/e6f30164-5d48-40ff-9c3f-a2aaa589af57
+
+---
+
+
+Step 3
+- Planetary gear and housing
+This main housing needed to contain all gearing elements and keep balance whilst over 2KG of glass rotated within it.
+
+<p align="center">
+<img width="600" height="800" alt="WhatsApp Image 2026-08-04 at 10 32 14" src="https://github.com/user-attachments/assets/84fb9686-7f2d-4bc6-9349-bcc6acac21cc" />
+
+
+
+---
+
+Final Design
+
+
+
+
+
+
+https://github.com/user-attachments/assets/c0ae6e90-3917-4fb3-a8e9-6cd88678b772
+
+
+
+
+---
+
+
+
+
+
+
+
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/front%20&%20side_page-0001.jpg?raw=true" width="1000">
+</p>
+
+
+<p align="center">
+  <img src="https://github.com/Luke-Steppens/Solaris/blob/main/Media/PDF%20to%20JPG/exploded%20view_page-0001.jpg?raw=true" width="1000">
+</p>
+
+---
 ## Core Features
 
 | Feature                     | Technology Stack                                     |
